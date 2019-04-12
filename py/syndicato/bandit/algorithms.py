@@ -16,7 +16,7 @@ class ContextFreeAlgorithm(BanditAlgorithm):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def select_arm(self):
+    def pull(self):
         pass
 
     def update(self, chosen_arm, reward):
@@ -39,14 +39,14 @@ class EpsilonGreedyAlgorithm(ContextFreeAlgorithm):
         assert (0.0 <= epsilon <= 1.0, "epislon should be between [0, 1]")
         self.num_arms = num_arms
         self.epsilon = epsilon
-        self.counts = np.zeros(num_arms, dtype=np.int32)
-        self.values = np.zeros(num_arms, dtype=np.float32)
+        self.__counts = np.zeros(num_arms, dtype=np.int32)
+        self.__values = np.zeros(num_arms, dtype=np.float32)
 
-    def select_arm(self):
+    def pull(self):
         if np.random.random() > self.epsilon:
             # if the highest values are equal, they are equally likely to be selected
-            highest_value = self.values[np.argmax(self.values)]
-            highest_arm_indices = np.reshape(np.argwhere(self.values == highest_value), (-1,))
+            highest_value = self.__values[np.argmax(self.__values)]
+            highest_arm_indices = np.reshape(np.argwhere(self.__values == highest_value), (-1,))
             if highest_arm_indices.size == 1:
                 return highest_arm_indices[0]
             else:
@@ -57,12 +57,19 @@ class EpsilonGreedyAlgorithm(ContextFreeAlgorithm):
             return np.random.randint(0, self.num_arms)
 
     def update(self, chosen_arm, reward):
-        n = self.counts[chosen_arm] + 1
-        prev_reward = self.values[chosen_arm]
+        self.__counts[chosen_arm] += 1
+        prev_reward = self.__values[chosen_arm]
 
-        self.values[chosen_arm] = expmath.update_running_average(
-            count=n,
+        self.__values[chosen_arm] = expmath.update_running_average(
+            count=self.__counts[chosen_arm],
             prev_average=prev_reward,
             new_value=reward
         )
-        self.counts[chosen_arm] += 1
+
+    @property
+    def pull_counts(self):
+        return self.__counts
+
+    @property
+    def rewards(self):
+        return self.__values

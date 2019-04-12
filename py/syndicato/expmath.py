@@ -18,5 +18,4 @@ def upper_confidence_bound(t, n):
     :param n: number of times arm has been selected
     :return:
     """
-
     return np.sqrt((2*np.log(t))/n)
