@@ -15,7 +15,7 @@ def generate_metric_figure_from_matrix(steps, matrix, arms, ax, title, ci_matrix
             lower_ci = values - ci
             ax.fill_between(steps, lower_ci, upper_ci, alpha=0.4, label='CI')
         ax.text(steps[-1], values[-1], str(arm.name))
-        ax.ticklabel_format(style='sci')
+        ax.ticklabel_format(style='sci', scilimits=(1, 2))
         line.set_label(idx)
 
 
@@ -26,7 +26,7 @@ def generate_metric_figure_from_values(steps, values, title, ax, label, ci=None)
         upper_ci = values + ci
         lower_ci = values - ci
         ax.fill_between(steps, lower_ci, upper_ci, alpha=0.4, label='CI')
-
+    ax.ticklabel_format(style='sci', scilimits=(1, 2))
     ax.legend()
 
     return ax
