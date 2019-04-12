@@ -15,6 +15,7 @@ from syndicato.experimenting import simulation
 from syndicato.experimenting import record
 from syndicato.reporting import plotting
 from syndicato.reporting import visualization
+from syndicato.reporting import persistence
 
 
 def run_simulation(args):
@@ -28,7 +29,7 @@ def run_simulation(args):
     return simulation_result
 
 
-def prepare_report_export_dir(job_dir, params):
+def prepare_export_dir(job_dir, params):
     tokens = []
     for k in sorted(params.keys()):
         tokens.append('%s-%s' % (k, params[k]))
@@ -43,13 +44,13 @@ def prepare_report_export_dir(job_dir, params):
 
     os.makedirs(path_name)
 
-    return os.path.join(path_name, 'report.html')
+    return path_name
 
 
 def main(exp_num_sims, exp_num_trials, exp_update_delay, exp_update_steps, exp_snapshot_steps, job_dir, report_ci,
          report_ci_scaling_factor):
-    names = ['jam', 'box', 'dw', 'dm', 'sc', 'ds']
-    means = [0.02, 0.03, 0.02, 0.01, 0.01, 0.023]
+    names = [str(idx + 1) for idx in range(20)]
+    means = np.random.rand(20) * 0.03
     np.random.shuffle(means)
     num_arms = len(means)
     arms = [environment.BernoulliArm(p=mean, reward=1.0, name=name) for name, mean in zip(names, means)]
@@ -79,8 +80,7 @@ def main(exp_num_sims, exp_num_trials, exp_update_delay, exp_update_steps, exp_s
             'num-trials': exp_params.num_trials
         }
 
-        report_path = prepare_report_export_dir(job_dir, params=exp_config)
-
+        export_path = prepare_export_dir(job_dir, params=exp_config)
         logger.info('Running with config: %s', exp_config)
 
         algorithm_fn = create_algorithm_fn(num_arms, epsilon)
@@ -92,14 +92,15 @@ def main(exp_num_sims, exp_num_trials, exp_update_delay, exp_update_steps, exp_s
             end = datetime.datetime.now()
             logger.info('Experiment ran for %s seconds]', (end - start).seconds)
 
-        experiment_result = simulation.exp_stats_from_simulation_results(simulation_results)
+        experiment_stats = simulation.exp_stats_from_simulation_results(simulation_results)
 
         logger.info('Experiment ended')
-
-        plots = generate_summary_plots(arms, exp_params, experiment_result, report_ci, report_ci_scaling_factor)
+        persistence.export(export_path, experiment_stats)
+        plots = generate_summary_plots(arms, exp_params, experiment_stats, report_ci, report_ci_scaling_factor)
         results.append((exp_config, plots))
 
-    logger.info('Exporting results to %s', report_path)
+    logger.info('Exporting results to %s', export_path)
+    report_path = os.path.join(job_dir, 'report.html')
     visualization.html_report(arms, results=results, output_path=report_path)
 
 
@@ -167,8 +168,9 @@ if __name__ == '__main__':
 
     args = arg_parser.parse_args()
 
+    logger.info('Arguments:')
     for arg in vars(args):
-        logger.info('\t- %s: %s', arg, getattr(args, arg))
+        logger.info('- %s: %s', arg, getattr(args, arg))
 
     main(args.exp_num_sims, args.exp_num_trials, args.exp_update_delay, args.exp_update_steps, args.exp_snapshot_steps,
          args.job_dir, args.report_ci, args.report_ci_scaling_factor)
