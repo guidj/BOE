@@ -11,7 +11,7 @@ class ContextFreeArm(object):
         pass
 
     @property
-    @abc.abstractproperty
+    @abc.abstractmethod
     def name(self):
         pass
 
