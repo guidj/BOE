@@ -4,20 +4,6 @@ from syndicato import expmath
 from syndicato.experimenting import record
 
 
-class DelayedCounter(object):
-    def __init__(self, starting_step):
-        self.starting_step = starting_step
-        self.__c = 0
-
-    def inc(self, step, by=None):
-        if step >= self.starting_step:
-            self.__c += by if by is not None else 1
-
-    @property
-    def value(self):
-        return self.__c
-
-
 def arm_snapshot_from_state(step, times_selected, avg_reward, total_reward, ucb=None):
     return record.ArmSnapshot(
         prob_selected=times_selected / float(step),
@@ -56,6 +42,20 @@ def exp_stats_from_simulation_results(simulation_results):
     )
 
 
+class DelayedCounter(object):
+    def __init__(self, starting_step):
+        self.starting_step = starting_step
+        self.__c = 0
+
+    def inc(self, step, by=None):
+        if step >= self.starting_step:
+            self.__c += by if by is not None else 1
+
+    @property
+    def value(self):
+        return self.__c
+
+
 class ContextFreeBanditSimulator(object):
     @staticmethod
     def run(algorithm, arms, exp_params):
@@ -80,10 +80,10 @@ class ContextFreeBanditSimulator(object):
                 chosen_arms = []
 
             if step % exp_params.snapshot_steps == 0:
-                # Note: this only snapshots what the algorithm knows, but the current state
+                # Note: this only snapshots what the algorithm knows, not the current state
                 # E.g. An algorithm runs daily, feedback is known after two days, but the algorithm is only updated
                 # every 10 days. A snapshot on day 7 would reflect the rewards known to the algorithm when it
-                # was initialized, but the known performance would cover actions took on days 1 to 5.
+                # was initialized, but the known performance would cover actions taken on days 1 to 5.
                 step_snapshot = [
                     arm_snapshot_from_state(step=step,
                                             times_selected=algorithm.pull_counts[idx],
