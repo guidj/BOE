@@ -74,7 +74,7 @@ class ContextFreeBanditSimulator(object):
             chosen_arm = algorithm.pull()
             chosen_arms.append(chosen_arm)
 
-            if update_counter.value % exp_params.update_steps == 0:
+            if step >= exp_params.update_delay and update_counter.value % exp_params.update_steps == 0:
                 new_total_rewards = ContextFreeBanditSimulator.__update(algorithm, arms, chosen_arms)
                 total_rewards = np.sum([total_rewards, new_total_rewards], axis=0)
                 chosen_arms = []
