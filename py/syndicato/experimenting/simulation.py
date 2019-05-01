@@ -13,7 +13,7 @@ def arm_snapshot_from_state(step, times_selected, avg_reward, total_reward, ucb=
     )
 
 
-def exp_stats_from_simulation_results(simulation_results):
+def experiment_stats_from_simulation_results(simulation_results):
     assert isinstance(simulation_results, (list, tuple, set))
 
     values = []
