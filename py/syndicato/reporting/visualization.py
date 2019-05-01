@@ -12,7 +12,7 @@ def imports():
 
 
 def load_asset(name):
-    file_path = os.path.join(syndicato.BASE_DIR, '../..', name)
+    file_path = os.path.join(syndicato.BASE_DIR, name)
 
     with open(file_path, 'r') as fp:
         return fp.read()

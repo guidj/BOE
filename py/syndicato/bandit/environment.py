@@ -21,11 +21,11 @@ class BernoulliArm(ContextFreeArm):
     Arm with Bernoulli distribution. Useful to simulate binary outcomes, e.g. click-through rate, with fixed
     probability.
     """
+
     def __init__(self, name, p, reward):
         assert isinstance(p, float)
         assert 0. <= p <= 1.0, "p should be between [0, 1]"
         assert isinstance(reward, float)
-        assert reward >= 0, "reward should be a positive number"
 
         self._name = name
         self.p = p

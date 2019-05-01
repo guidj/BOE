@@ -1,0 +1,36 @@
+# type: one bandit
+# type: several bandits (cumulative reward, global average reward)
+experiments:
+  - id: simple-explore-exploit
+    algorithm:
+      id: epsilon-greedy
+      configs:
+        - epsilon: 0.1
+        - epsilon: 0.2
+        - epsilon: 0.4
+    arms:
+      - type: bernoulli
+        name: jump-back-in
+        p: 0.01
+        reward: -1.0
+      - type: bernoulli
+        name: new-releases-from-favorite
+        p: 0.01
+        reward: 1.0
+      - type: bernoulli
+        name: box-office-breakers
+        p: 0.02
+        reward: 1.0
+      - type: bernoulli
+        name: worst-movies-ever
+        p: 0.05
+        reward: 1.0
+    config:
+      report:
+        ci-scaling-factor: 0.1
+      simulation:
+        runs: 15
+        trials: 10000
+        update-delay: 100
+        update-steps: 50
+        snapshot-steps: 10
