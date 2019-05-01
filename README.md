@@ -2,6 +2,17 @@
 
 Simulating context-free bandits.
 
+## Running Experiment
+
+First, create a YAML file similar to [egreedy-basics.yaml](expriments/egreedy-basics.yaml).
+
+To see run options, including param names, type:
+
+```
+python -m syndicato.experimenting --help
+```
+
+Note that contents of the [py](py) directory should be included in `PYTHONPATH`.
 
 ## Reported Metrics
 
