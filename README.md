@@ -4,7 +4,7 @@ Simulating context-free bandits.
 
 ## Running Experiment
 
-First, create a YAML file similar to [egreedy-basics.yaml](expriments/egreedy-basics.yaml).
+First, create a YAML file similar to [egreedy-basics.yaml](experiments/egreedy-basics.yaml).
 
 To see run options, including param names, type:
 
@@ -35,6 +35,7 @@ to estimate the confidence of knowledge of one arm over other arms. Not as an ab
 
 The computed UCB at each snapshot is stored as is.
 
-## Execution
+## Environment
 
-TBD, but use with python3.
+Use python3.
+
