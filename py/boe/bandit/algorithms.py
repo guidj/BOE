@@ -10,8 +10,8 @@ import abc
 
 import numpy as np
 
-from syndicato import expmath
-from syndicato import logger
+from boe import expmath
+from boe import logger
 
 
 ANNEALING_FACTOR = 0.0000001

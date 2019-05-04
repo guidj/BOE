@@ -115,9 +115,9 @@ __ALGORITHMS_DEFINITIONS__ = {
 }
 
 __SCHEMA__ = {
-    "$id": "https://thinkingthread.com/syndicato.schema.json",
+    "$id": "https://thinkingthread.com/boe.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Syndicato Experiments",
+    "title": "boe Experiments",
     "description": "Simulating context-free bandits",
     "definitions": {
         "algorithm-config": __ALGORITHMS_DEFINITIONS__,

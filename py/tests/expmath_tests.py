@@ -3,7 +3,7 @@ import unittest
 
 class RunningAverageTest(unittest.TestCase):
     def test_updating_running_average(self):
-        from syndicato import expmath
+        from boe import expmath
         inp = ((2, 0.0, 1.0), (4, -1.0, 1.0), (7, 3.0, 3.0))
         expected = (0.5, -0.5, 3.0)
 
