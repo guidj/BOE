@@ -1,13 +1,14 @@
 # type: one bandit
 # type: several bandits (cumulative reward, global average reward)
 experiments:
-  - id: egreedy-explore-exploit
+  - id: ucb-explore-exploit
     algorithm:
-      id: epsilon-greedy
+      id: ucb1
       configs:
-        - epsilon: 0.1
-        - epsilon: 0.2
-        - epsilon: 0.4
+        - min-reward: -1
+          max-reward: 1
+        - min-reward: -3
+          max-reward: 3
     arms:
       - type: bernoulli
         name: jump-back-in
@@ -30,7 +31,7 @@ experiments:
         ci-scaling-factor: 0.1
       simulation:
         runs: 15
-        trials: 10000
+        trials: 100000
         update-delay: 100
         update-steps: 50
         snapshot-steps: 10

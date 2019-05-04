@@ -66,16 +66,22 @@ def create_arms(arms_config):
 def create_algorithm_fn(typ, algorithm_config, num_arms):
     def algorithm_fn():
         if typ == 'epsilon-greedy':
-            return algorithms.EpsilonGreedyAlgorithm(num_arms=num_arms, epsilon=algorithm_config['epsilon'])
+            return algorithms.EpsilonGreedy(num_arms=num_arms, epsilon=algorithm_config['epsilon'])
+        elif typ == 'softmax':
+            return algorithms.Softmax(num_arms=num_arms, temperature=algorithm_config['temperature'])
+        elif typ == 'ucb1':
+            return algorithms.UCB1(num_arms=num_arms,
+                                   min_reward=algorithm_config['min-reward'],
+                                   max_reward=algorithm_config['max-reward'])
         else:
-            raise RuntimeError('Unknown algorithm: %s' % algorithm_config['id'])
+            raise RuntimeError('Unknown algorithm: %s' % typ)
 
     return algorithm_fn
 
 
 def create_id_from_config(config_json):
     payload = json.dumps(config_json, sort_keys=True).encode('utf-8')
-    return '%s_%d' % (hashlib.md5(payload).hexdigest()[:8], int(time.time()))
+    return '%s-%d' % (hashlib.md5(payload).hexdigest()[:8], int(time.time()))
 
 
 def main(config_file, job_dir, nproc):
@@ -123,6 +129,7 @@ def main(config_file, job_dir, nproc):
             experiment_stats = simulation.experiment_stats_from_simulation_results(simulation_results)
 
             logger.info('Experiment %s ended', exp_config['id'])
+            logger.info('Exporting results to %s', export_path)
             persistence.export(export_path, experiment_stats)
             plots = generate_summary_plots(arms,
                                            exp_params=exp_params,
@@ -132,9 +139,8 @@ def main(config_file, job_dir, nproc):
                                       output_path=os.path.join(export_path, 'report.html'))
             experiment_results.append((params, plots))
 
-            logger.info('Exporting results to %s', export_path)
-
         report_path = os.path.join(experiment_dir, 'report.html')
+        logger.info('Exporting final report to %s', report_path)
         visualization.html_report(arms, results=experiment_results, output_path=report_path)
 
 

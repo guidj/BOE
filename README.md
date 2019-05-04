@@ -1,6 +1,6 @@
-# Syndicato
+# BOE
 
-Simulating context-free bandits.
+Bandit Observation Engine: simulating context-free bandits.
 
 ## Running Experiment
 
@@ -14,6 +14,21 @@ python -m syndicato.experimenting --help
 
 Note that contents of the [py](py) directory should be included in `PYTHONPATH`.
 
+
+## Features
+
+  - Delayed reward (initial delay)
+  - Periodic update (periodic delay)
+  - Periodic snapshot of bandit state
+  - HTML report on experiment
+
+## Supported algorithms
+
+  - [EpsilonGreedy](experiments/egreedy-basics.yaml)
+  - [Softmax](experiments/softmax-basics.yaml)
+  - [UCB1](experiments/ucb1-basics.yaml)
+  
+  
 ## Reported Metrics
 
 There are four reported metrics, which are saved at each snapshot:

@@ -1,4 +1,7 @@
-from syndicato import BASE_DIR
+"""
+Configuration parameters
+"""
+
 
 __ARMS_DEFINITIONS__ = {
     "definitions": {
@@ -54,12 +57,61 @@ __ALGORITHMS_DEFINITIONS__ = {
                     }
                 }
             }
+        },
+        "softmax": {
+            "type": "object",
+            "required": ["id", "configs"],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "enum": ["softmax"]
+                },
+                "configs": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["temperature"],
+                        "properties": {
+                            "temperature": {
+                                "type": "number",
+                                "exclusiveMinimum": 0.0
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "ucb1": {
+            "type": "object",
+            "required": ["id", "configs"],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "enum": ["ucb1"]
+                },
+                "configs": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["min-reward", "max-reward"],
+                        "properties": {
+                            "min-reward": {
+                                "type": "number"
+                            },
+                            "max-reward": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "oneOf": [
-        {"$ref": "#/definitions/algorithm-config/definitions/epsilon-greedy"}
+        {"$ref": "#/definitions/algorithm-config/definitions/epsilon-greedy"},
+        {"$ref": "#/definitions/algorithm-config/definitions/softmax"},
+        {"$ref": "#/definitions/algorithm-config/definitions/ucb1"}
     ]
-
 }
 
 __SCHEMA__ = {

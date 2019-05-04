@@ -6,3 +6,5 @@
 # code 
 *.pyc
 *.cprof
+
+**/.hypothesis/
