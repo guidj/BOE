@@ -9,7 +9,7 @@ First, create a YAML file similar to [egreedy-basics.yaml](experiments/egreedy-b
 To see run options, including param names, type:
 
 ```
-python -m syndicato.experimenting --help
+python -m boe.experimenting --help
 ```
 
 Note that contents of the [py](py) directory should be included in `PYTHONPATH`.

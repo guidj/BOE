@@ -9,7 +9,7 @@ function run(){
     PY=$PARENT_DIR/py
     export PYTHONPATH=$PYTHONPATH:$PY
 
-    python -m syndicato.experimenting \
+    python -m boe.experimenting \
         --config-file=$PARENT_DIR/experiments/ucb1-basics.yaml \
         --job-dir=$HOME/exp/bandits/ \
         --nproc=4

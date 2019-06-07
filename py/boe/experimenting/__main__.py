@@ -11,15 +11,15 @@ import hashlib
 
 import numpy as np
 
-from syndicato import logger
-from syndicato.bandit import algorithms
-from syndicato.bandit import environment
-from syndicato.experimenting import simulation
-from syndicato.experimenting import record
-from syndicato.experimenting import config
-from syndicato.reporting import plotting
-from syndicato.reporting import visualization
-from syndicato.reporting import persistence
+from boe import logger
+from boe.bandit import algorithms
+from boe.bandit import environment
+from boe.experimenting import simulation
+from boe.experimenting import record
+from boe.experimenting import config
+from boe.reporting import plotting
+from boe.reporting import visualization
+from boe.reporting import persistence
 
 
 def run_simulation(args):

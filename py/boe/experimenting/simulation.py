@@ -1,7 +1,7 @@
 import numpy as np
 
-from syndicato import expmath
-from syndicato.experimenting import record
+from boe import expmath
+from boe.experimenting import record
 
 
 def arm_snapshot_from_state(step, times_selected, avg_reward, total_reward, ucb=None):

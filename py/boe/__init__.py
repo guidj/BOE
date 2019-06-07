@@ -30,7 +30,7 @@ logging.config.dictConfig({
     }
 })
 
-logger = logging.getLogger('syndicato')
+logger = logging.getLogger('boe')
 
 PY_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.join(PY_DIR, '../../')

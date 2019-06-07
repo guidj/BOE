@@ -29,7 +29,7 @@ experiments:
         ci-scaling-factor: 0.1
       simulation:
         runs: 15
-        trials: 100000
+        trials: 10000
         update-delay: 100
         update-steps: 50
         snapshot-steps: 10

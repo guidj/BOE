@@ -3,8 +3,8 @@ import os.path
 
 import numpy as np
 
-from syndicato.experimenting import record
-from syndicato import logger
+from boe.experimenting import record
+from boe import logger
 
 
 __AVG_REWARD__ = 'ar'

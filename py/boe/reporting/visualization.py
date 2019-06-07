@@ -1,8 +1,8 @@
 import os
 import os.path
 
-import syndicato
-from syndicato.reporting import plotting
+import boe
+from boe.reporting import plotting
 
 
 def imports():
@@ -12,7 +12,7 @@ def imports():
 
 
 def load_asset(name):
-    file_path = os.path.join(syndicato.BASE_DIR, name)
+    file_path = os.path.join(boe.BASE_DIR, name)
 
     with open(file_path, 'r') as fp:
         return fp.read()

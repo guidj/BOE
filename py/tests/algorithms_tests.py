@@ -6,9 +6,9 @@ from hypothesis import settings
 import hypothesis.strategies as st
 import numpy as np
 
-from syndicato.bandit.algorithms import EpsilonGreedy
-from syndicato.bandit.algorithms import Softmax
-from syndicato.bandit.algorithms import UCB1
+from boe.bandit.algorithms import EpsilonGreedy
+from boe.bandit.algorithms import Softmax
+from boe.bandit.algorithms import UCB1
 
 
 class EspilonGreedyTest(unittest.TestCase):
