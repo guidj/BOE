@@ -1,22 +1,13 @@
 class ArmSnapshot(object):
     def __init__(self, prob_selected, avg_reward, total_reward, ucb):
-        self.snapshot = [prob_selected, avg_reward, total_reward, ucb]
+        self.prob_selected = prob_selected
+        self.avg_reward = avg_reward
+        self.total_reward = total_reward
+        self.ucb = ucb
 
     @property
-    def prob_selected(self):
-        return self.snapshot[0]
-
-    @property
-    def avg_reward(self):
-        return self.snapshot[1]
-
-    @property
-    def total_reward(self):
-        return self.snapshot[2]
-
-    @property
-    def ucb(self):
-        return self.snapshot[3]
+    def snapshot(self):
+        return [self.prob_selected, self.avg_reward, self.total_reward, self.ucb]
 
 
 class SimulationResult(object):
