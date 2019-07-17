@@ -23,10 +23,10 @@ class SimulationResult(object):
 
 
 class ExperimentParams(object):
-    def __init__(self, num_sims, num_trials, update_delay, update_steps, snapshot_steps):
+    def __init__(self, num_sims, num_trials, initial_update_delay, update_steps, snapshot_steps):
         self.num_sims = num_sims
         self.num_trials = num_trials
-        self.update_delay = update_delay
+        self.initial_update_delay = initial_update_delay
         self.update_steps = update_steps
         self.snapshot_steps = snapshot_steps
 

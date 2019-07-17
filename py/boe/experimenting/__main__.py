@@ -96,7 +96,7 @@ def main(config_file, job_dir, nproc):
         num_arms = len(arms)
         exp_params = record.ExperimentParams(num_sims=exp_config['config']['simulation']['runs'],
                                              num_trials=exp_config['config']['simulation']['trials'],
-                                             update_delay=exp_config['config']['simulation']['update-delay'],
+                                             initial_update_delay=exp_config['config']['simulation']['initial-update-delay'],
                                              update_steps=exp_config['config']['simulation']['update-steps'],
                                              snapshot_steps=exp_config['config']['simulation']['snapshot-steps'])
         logger.info('Arms:')
