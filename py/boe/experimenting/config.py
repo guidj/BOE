@@ -144,7 +144,7 @@ __SCHEMA__ = {
                     "type": "number",
                     "minimum": 1
                 },
-                "update-delay": {
+                "initial-update-delay": {
                     "type": "integer",
                     "minimum": 0
                 },
