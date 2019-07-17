@@ -7,8 +7,6 @@ def generate_metric_figure_from_matrix(steps, matrix, arms, ax, title, ci_matrix
     for idx, arm in enumerate(arms):
         values = matrix[:, idx]
         line, = ax.plot(steps, values)
-        if len(arms) < 10:
-            ax.legend()
         if ci_matrix is not None:
             ci = ci_matrix[:, idx]
             upper_ci = values + ci
@@ -17,6 +15,9 @@ def generate_metric_figure_from_matrix(steps, matrix, arms, ax, title, ci_matrix
         ax.text(steps[-1], values[-1], str(arm.name))
         ax.ticklabel_format(style='sci', scilimits=(1, 2))
         line.set_label(idx)
+
+    if len(arms) < 10:
+        ax.legend()
 
 
 def generate_metric_figure_from_values(steps, values, title, ax, label, ci=None):
